@@ -1,0 +1,83 @@
+{{setVar 'idsAvailable' (array '0955614852' '1748151479' '1081816872')}}
+{{setVar 'strIdsAvailable' (stringify idsAvailable)}}
+{{setVar 'strIDRequested' (queryParam 'identificacion' '0' true)}}
+{{setVar 'idFound' (includes strIdsAvailable strIDRequested)}}
+{{setVar 'notFound' (eq (queryParam 'identificacion' '0') 0)}}
+[
+  {{#if idFound}}
+  {
+    {{setVar 'nameFirst' (firstName)}}
+    {{setVar 'nameLast' (lastName)}}
+    "adicional1_cliente": "",
+    "personaasociada_id": "{{faker 'random.alphaNumeric' 16}}",
+    "direccion": "{{street}}",
+    "id": "{{faker 'random.alphaNumeric' 16}}",
+    "es_vendedor": {{boolean}},
+    "tipo": "{{oneOf (array 'N' 'J' 'I' 'P')}}",
+    "razon_social": "{{nameFirst}} {{nameLast}}",
+    "nombre_comercial": "nombre comercial prueba",
+    "es_corporativo": null,
+    "porcentaje_descuento": null,
+    "origen": null,
+    "ruc": "{{faker 'random.numeric' 13}}",
+    "banco_codigo_id": null,
+    "email": "{{faker 'internet.email' nameFirst nameLast}}",
+    "adicional3_cliente": "",
+    "es_cliente": {{boolean}},
+    "adicional1_proveedor": "",
+    "numero_tarjeta": "",
+    "adicional3_proveedor": "",
+    "es_extranjero": false,
+    "adicional2_cliente": "",
+    "es_empleado": false,
+    "aplicar_cupo": false,
+    "es_proveedor": false,
+    "telefonos": "{{phone}}",
+    "adicional4_proveedor": "",
+    "tipo_cuenta": null,
+    "adicional4_cliente": "",
+    "placa": null,
+    "adicional2_proveedor": "",
+    "cedula": {{strIDRequested}}
+  }
+  {{/if}}
+  {{#if notFound}}
+  {{#repeat (len idsAvailable)}}
+  {
+    {{setVar 'nameFirst' (firstName)}}
+    {{setVar 'nameLast' (lastName)}}
+    "adicional1_cliente": "",
+    "personaasociada_id": "{{faker 'random.alphaNumeric' 16}}",
+    "direccion": "{{street}}",
+    "id": "{{faker 'random.alphaNumeric' 16}}",
+    "es_vendedor": {{boolean}},
+    "tipo": "{{oneOf (array 'N' 'J' 'I' 'P')}}",
+    "razon_social": "{{nameFirst}} {{nameLast}}",
+    "nombre_comercial": "nombre comercial prueba",
+    "es_corporativo": null,
+    "porcentaje_descuento": null,
+    "origen": null,
+    "ruc": "{{faker 'random.numeric' 13}}",
+    "banco_codigo_id": null,
+    "email": "{{faker 'internet.email' nameFirst nameLast}}",
+    "adicional3_cliente": "",
+    "es_cliente": {{boolean}},
+    "adicional1_proveedor": "",
+    "numero_tarjeta": "",
+    "adicional3_proveedor": "",
+    "es_extranjero": false,
+    "adicional2_cliente": "",
+    "es_empleado": false,
+    "aplicar_cupo": false,
+    "es_proveedor": false,
+    "telefonos": "{{phone}}",
+    "adicional4_proveedor": "",
+    "tipo_cuenta": null,
+    "adicional4_cliente": "",
+    "placa": null,
+    "adicional2_proveedor": "",
+    "cedula": "{{slice idsAvailable @index (add @index 1)}}",
+  }
+  {{/repeat}}
+  {{/if}}
+]
